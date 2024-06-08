@@ -34,6 +34,7 @@ Welcome to **Pickup_Cupid**, an innovative project that leverages large language
 
 ### Steps
 
+
 1. Clone the repository:
 
    ```sh
@@ -54,6 +55,14 @@ Welcome to **Pickup_Cupid**, an innovative project that leverages large language
 - uvicorn main:app --reload
 
 5. Alternate docker container
+
+
+### Ollama server for llama3
+
+1. Ollama installation:
+
+- follow the instructions to setup llama in your local machine - (Link)[https://github.com/ollama/ollama]
+
 
 ### License
 
