@@ -23,7 +23,7 @@ def model_inference2(radio_options):
 
     GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
-    llm = ChatGroq(temperature=0, model_name="llama3-8b-8192")
+    llm = ChatGroq(temperature=1, model_name="llama3-8b-8192")
 
     response = PromptTemplate.from_template(
         """Generate me a pick-up line according to the choosen scenario {selected_option}.
