@@ -16,7 +16,7 @@ def model_inference(radio_options):
     pickupline_output = llm_call.invoke(prompt.format(selected_option=radio_options))
     return pickupline_output
 
-def model_inference2(radio_options):
+def model_inference2(radio_options,sex,quality):
     env_path = find_dotenv()
 
     load_dotenv(env_path)
@@ -26,27 +26,34 @@ def model_inference2(radio_options):
     llm = ChatGroq(temperature=1, model_name="llama3-8b-8192")
 
     response = PromptTemplate.from_template(
-        """Generate me a pick-up line according to the choosen scenario {selected_option}.
+        """Generate me only one pick-up line according to the choosen scenario {selected_option} and for the desired quality {text_option}.
         Output must only be the response, Keep it to a maximum of two lines only.
-        Don't add anything extra.
+        Don't add anything extra. The pick-up line is for {sex_option}.
         """
     )
-    output = llm.invoke(response.format(selected_option = radio_options))
+    output = llm.invoke(response.format(selected_option = radio_options, sex_option = sex, text_option = quality))
     return output.content
 
 
-original_title = '<p style="font-family:Fantasy; color:Blue; font-size: 20px;">Pickup Cupid - Generate awesome pickup lines for your loved ones</p>'
+original_title = '<p style="font-family:\'Roboto\', sans-serif; color:Red; font-size: 20px;">Pickup Cupid - Generate awesome pickup lines for your loved ones</p>'
 st.markdown(original_title, unsafe_allow_html=True)
 
 radio_options = st.radio(
     "Choose a pick_line scenario",
-    ("Cheesy", "Romantic", "Funny", "Weird", "Smooth", "Cute")
+    ("Cheesy", "Romantic", "Funny", "Weird", "Smooth", "Cute", "Dirty")
 )
+
+sex = st.radio(
+    "Choose from below to whom you want to say this",
+    ("Male", "Female")
+)
+
+quality = st.text_area("Enter any additional context or customize the pickup line", "")
 
 st.write("You have selected",radio_options)
 
 if st.button("Get line"):
-    output = model_inference2(radio_options)
+    output = model_inference2(radio_options,sex,quality)
     answer = st.text_area('Here is one for you',output)
     
 
