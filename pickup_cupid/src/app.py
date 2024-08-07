@@ -26,9 +26,9 @@ def model_inference2(radio_options,sex,quality):
     llm = ChatGroq(temperature=1, model_name="llama3-8b-8192")
 
     response = PromptTemplate.from_template(
-        """Generate me only one pick-up line according to the choosen scenario {selected_option} and for the desired quality {text_option}.
+        """Generate me a pick-up line according to the choosen scenario {selected_option}.
         Output must only be the response, Keep it to a maximum of two lines only.
-        Don't add anything extra. The pick-up line is for {sex_option}.
+        Don't add anything extra. Also the output should be for the given sex {sex_option}, and it should be focused on the desired quality by the user input {text_option}
         """
     )
     output = llm.invoke(response.format(selected_option = radio_options, sex_option = sex, text_option = quality))
